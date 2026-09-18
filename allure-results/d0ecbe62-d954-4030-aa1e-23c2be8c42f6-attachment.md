@@ -1,0 +1,94 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: login.Spec.js >> login with invalid username and invalid password
+- Location: tests/login.Spec.js:55:6
+
+# Error details
+
+```
+ReferenceError: ppage is not defined
+```
+
+# Test source
+
+```ts
+  1  | import {expect, test} from '@playwright/test'
+  2  | import { Login } from '../Pages/Login'
+  3  | 
+  4  | test('login with Valid username and valid password', async({page})=>{
+  5  |     const login=new Login(page)
+  6  |     await login.navigateToApplication()
+  7  |     await login.clickOnLoginMenu()
+  8  |     await login.loginWithValidUsername()
+  9  |     await login.loginWithInvalidPassword()
+  10 |     await login.clickOnLoginButton()
+  11 | 
+  12 |     // await page.waitForLoadState('networkidle')
+  13 |     await expect(login.logoutButton).toBeVisible()
+  14 | })
+  15 | 
+  16 | test('login with invalid username and valid password', async ({ page }) => {
+  17 | 
+  18 |     page.on('dialog', async dialog => {
+  19 |         console.log('Alert message:', dialog.message());
+  20 |         await dialog.accept()
+  21 |     })
+  22 | 
+  23 |     const login = new Login(page)
+  24 | 
+  25 |     await login.navigateToApplication()
+  26 |     await login.clickOnLoginMenu()
+  27 | 
+  28 |     await login.loginWithInvalidUsername()
+  29 |     await login.loginWithValidPassword()
+  30 |     await login.clickOnLoginButton()
+  31 | 
+  32 |     await expect(login.closeButton).toBeVisible()
+  33 | })
+  34 | 
+  35 | test('login with valid username and invalid password', async({page})=>{
+  36 | 
+  37 |     page.on('dialog', async dialog => {
+  38 |         console.log('Alert message:', dialog.message());
+  39 |         await dialog.accept()
+  40 |     })
+  41 | 
+  42 |     const login=new Login(page)
+  43 | 
+  44 |     await login.navigateToApplication()
+  45 |     await login.clickOnLoginMenu()
+  46 | 
+  47 |     await login.loginWithValidUsername()
+  48 |     await login.loginWithValidPassword()
+  49 |     await login.clickOnLoginButton()
+  50 | 
+  51 |     await expect(login.closeButton).toBeVisible()
+  52 | })
+  53 | 
+  54 | 
+  55 | test.only('login with invalid username and invalid password', async({page})=>{
+> 56 | ppage.on('dialog', async dialog => {
+     |  ^ ReferenceError: ppage is not defined
+  57 |     expect(dialog.message()).toBe('Wrong password.')
+  58 |     await dialog.accept();
+  59 | })
+  60 | 
+  61 | 
+  62 |     const login=new Login(page)
+  63 | 
+  64 |     await login.navigateToApplication()
+  65 |     await login.clickOnLoginMenu()
+  66 | 
+  67 |     await login.loginWithInvalidUsername()
+  68 |     await login.loginWithInvalidPassword()
+  69 |     await login.clickOnLoginButton()
+  70 | 
+  71 |     // await page.waitForLoadState('networkidle')
+  72 | })
+```

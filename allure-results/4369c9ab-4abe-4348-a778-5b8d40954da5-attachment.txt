@@ -1,0 +1,2 @@
+Alert message: Sign up successful.
+Alert message: Product added.

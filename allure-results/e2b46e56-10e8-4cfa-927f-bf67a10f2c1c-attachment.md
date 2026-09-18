@@ -1,0 +1,144 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: E2Eflow.spec.js >> user signUp and login successfully
+- Location: tests/E2Eflow.spec.js:6:1
+
+# Error details
+
+```
+Error: expect(locator).toBeVisible() failed
+
+Locator:  locator('//a[@id=\'logout2\']')
+Expected: visible
+Received: hidden
+Timeout:  5000ms
+
+Call log:
+  - Expect "toBeVisible" with timeout 5000ms
+  - waiting for locator('//a[@id=\'logout2\']')
+    5 × locator resolved to <a href="#" id="logout2" class="nav-link" onclick="logOut()">Log out</a>
+      - unexpected value "hidden"
+    - waiting for "https://www.demoblaze.com/" navigation to finish...
+    - navigated to "https://www.demoblaze.com/"
+    - locator resolved to <a href="#" id="logout2" class="nav-link" onclick="logOut()">Log out</a>
+    - unexpected value "hidden"
+
+```
+
+```yaml
+- dialog:
+  - heading "About us" [level=5]
+  - button "Close"
+  - button "Close"
+- navigation:
+  - button "Toggle navigation"
+  - link "PRODUCT STORE":
+    - /url: index.html
+    - img
+    - text: PRODUCT STORE
+  - list:
+    - listitem:
+      - link "Home (current)":
+        - /url: index.html
+    - listitem:
+      - link "Contact":
+        - /url: "#"
+    - listitem:
+      - link "About us":
+        - /url: "#"
+    - listitem:
+      - link "Cart":
+        - /url: cart.html
+    - listitem:
+      - link "Log in":
+        - /url: "#"
+    - listitem
+    - listitem
+    - listitem:
+      - link "Sign up":
+        - /url: "#"
+  - list:
+    - listitem
+    - listitem
+    - listitem
+  - img "First slide"
+  - img "Second slide"
+  - img "Third slide"
+  - button "Previous"
+  - button "Next"
+- link "CATEGORIES":
+  - /url: ""
+- link "Phones":
+  - /url: "#"
+- link "Laptops":
+  - /url: "#"
+- link "Monitors":
+  - /url: "#"
+- list:
+  - listitem:
+    - button "Previous"
+  - listitem:
+    - button "Next"
+```
+
+# Test source
+
+```ts
+  1  | import {expect, test} from  '@playwright/test'
+  2  | import { SignUp } from '../Pages/SignUp.js'
+  3  | import {Login } from '../Pages/Login.js'
+  4  | import { Indexpage } from '../Pages/Indexpage.js'
+  5  | 
+  6  | test('user signUp and login successfully', async({page})=>{
+  7  |     const signup=new SignUp(page)
+  8  |     const login=new Login(page)
+  9  |     const homepage=new Indexpage(page)
+  10 | 
+  11 |     //sign up
+  12 | 
+  13 |     // await signup.navigateToApplication()
+  14 |     // await signup.clickOnSignUpMenu()
+  15 | 
+  16 |     // await signup.enterSignUpUsername()
+  17 |     // await signup.enterSignUpPassword()
+  18 | 
+  19 |     // page.on('dialog', async dialog => {
+  20 |     //     console.log('Alert message:', dialog.message())
+  21 |     //     // expect(dialog.message()).toBe('Sign up successful.')
+  22 |     //     await dialog.accept()
+  23 |     // })
+  24 | 
+  25 |     // await signup.clickOnSignUpButton()
+  26 | 
+  27 |     //login
+  28 | 
+  29 |     await login.navigateToApplication()
+  30 |     
+  31 |     await login.clickOnLoginMenu()
+  32 | 
+  33 |     await login.LoginWithValidUsername()
+  34 |     await login.LoginWithValidPassword()
+  35 | 
+  36 |     await login.clickOnLoginButton()
+  37 | 
+> 38 |     await expect(login.logoutButton).toBeVisible()
+     |                                      ^ Error: expect(locator).toBeVisible() failed
+  39 | 
+  40 |     //add to cart
+  41 |     await homepage.clickOnSamsunggalaxyS6()
+  42 | 
+  43 |     await homepage.addToCart()
+  44 |      page.on('dialog', async dialog => {
+  45 |         console.log('Alert message:', dialog.message())
+  46 |         await dialog.accept()
+  47 |     })
+  48 | 
+  49 | })
+  50 | 
+```
