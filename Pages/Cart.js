@@ -17,8 +17,10 @@ export class Cart{
         await this.cart.click()
     }
     async clickOnPlaceOrder(){
-        await this.placeOrderButton.click()
+    await this.placeOrderButton.waitFor({ state: 'visible' })
+    await this.placeOrderButton.click()
     }
+    
     async fillDetails(){
         await this.name.fill("Anusree")
         await this.country.fill("India")
