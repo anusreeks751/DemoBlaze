@@ -2,9 +2,8 @@ import { expect, test } from '@playwright/test'
 import { Login } from '../Pages/Login.js'
 import { Indexpage } from '../Pages/Indexpage.js'
 
-test('user signUp and login successfully', async ({ page }) => {
+test('user login and add product to cart successfully', async ({ page }) => {
 
-    const signup = new SignUp(page)
     const login = new Login(page)
     const homepage = new Indexpage(page)
 
