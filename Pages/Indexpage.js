@@ -25,7 +25,7 @@ export class Indexpage{
         await this.monitorsMenu.click()
     }
     async selectAppleMonitor(){
-        await this.appleMonitor.click()
-    }
-
+    await this.appleMonitor.waitFor({ state: 'visible' })
+    await this.appleMonitor.click()
 }
+    }
