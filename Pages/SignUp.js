@@ -16,7 +16,7 @@ export class SignUp{
         await this.signUpMenu.click()
     }
     async enterSignUpUsername(){
-        await this.username.fill("Anusreeanus34216")
+        await this.username.fill("Anusree K S")
     }
     async enterSignUpPassword(){
         await this.password.fill("anusree")
